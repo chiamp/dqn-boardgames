@@ -73,3 +73,4 @@ I got interested in reinforcement learning after watching the livestream of Deep
 After Connect Four, I wanted to try expanding the algorithm on games with more than 2 players and also games that didn't have perfect information, and so I chose Incan Gold. To my surprise, the overall observation and action space is smaller than Connect Four!
 
 ![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
+![equation](http://www.sciweavers.org/tex2img.php?eq=%28+r+%2B+%5Cgamma+%5Cunderset%7Ba%27%7D%7B+%5Ctext%7Bmax%7D+%7DQ%28s%27%2Ca%27%3B%5Ctheta%5E-_i%29+-+Q%28s%2Ca%3B%5Ctheta_i%29%29%5E2&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
