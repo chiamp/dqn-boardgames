@@ -56,7 +56,7 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 * DQN is an algorithm that uses the concept of Q-learning, with the use of neural networks as the action-value function
 * It was used by DeepMind to create reinforcement learning agents that could perform at professional human levels on Atari games
 * Some important features of DQN:
-    * The TD-error for the DQN is:![equation](http://www.sciweavers.org/tex2img.php?eq=%28+r+%2B+%5Cgamma+%5Cunderset%7Ba%27%7D%7B+%5Ctext%7Bmax%7D+%7DQ%28s%27%2Ca%27%3B%5Ctheta%5E-_i%29+-+Q%28s%2Ca%3B%5Ctheta_i%29%29%5E2&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=), where $$Q$$ is the action value function (represented by a neural network), $$\theta_i$$ are the network's parameters at time step $$i$$, and $$\theta^-_i$$ are the target network's parameters at time step $$i$$
+    * The TD-error for the DQN is: ![equation](http://www.sciweavers.org/tex2img.php?eq=%28+r+%2B+%5Cgamma+%5Cunderset%7Ba%27%7D%7B+%5Ctext%7Bmax%7D+%7DQ%28s%27%2Ca%27%3B%5Ctheta%5E-_i%29+-+Q%28s%2Ca%3B%5Ctheta_i%29%29%5E2&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) , where $$Q$$ is the action value function (represented by a neural network), $$\theta_i$$ are the network's parameters at time step $$i$$, and $$\theta^-_i$$ are the target network's parameters at time step $$i$$
     * The implementation of an experience replay buffer that is sampled from during training
 * Originally I implemented the algorithm denoted in the paper (with a target network and replay buffer), but later altered it for simplification:
     * Since I was solely working on 2+ player board games, the environments are such that the episodes will always terminate and will always have a winner/loser and/or players that tie
