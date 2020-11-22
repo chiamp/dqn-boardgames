@@ -1,7 +1,7 @@
 # Reinforcement Learning Repo
 This is a repo where I test reinforcement learning algorithms on board games. Details on how the board games and algorithms are implemented can be found below.
 ## Games list
-* Tic Tac Toe 
+* [Tic Tac Toe](#tic-tac-toe)
 * Connect Four
 * Incan Gold
 
