@@ -60,12 +60,19 @@ This is a repo where I test reinforcement learning algorithms on board games. De
     * The TD-error for the DQN is: ![Alt text](equation_images/dqn_td_error.png) , where ![Alt text](equation_images/Q.png) is the action value function (represented by a neural network), ![Alt text](equation_images/theta_i.png) are the network's parameters at iteration ![Alt text](equation_images/i.png), and ![Alt text](equation_images/theta_-_i.png) are the target network's parameters at iteration ![Alt text](equation_images/i.png)
     * An experience replay buffer is implemented, which is sampled from during training
 * Originally I implemented the algorithm denoted in the paper (with a target network and replay buffer), but later altered it for simplification:
-    * Since I was solely working on 2+ player board games, the environments are such that the episodes will always terminate and will always have a winner/loser and/or players that tie
+    * Since I was solely working on 2+ player board games, the environments are such that the episodes will always terminate and will always have either a winner/loser and/or players that tie, or a player that made an illegal move that caused the episode to terminate prematurely
     * Thus I formulated the terminal rewards to be +1 for winning, 0 for tieing, and -1 for losing or making illegal moves, with no transition rewards (![Alt text](equation_images/zero_transition_reward.png))
     * I also removed the target network as I reasoned that taking the discounted terminal reward as the expected return was good enough for environments where the only reward given is at the end of the episode, and that there was no need for a neural network estimate of the expected return when I can use, essentially, a sample of the actual return instead (similar to Monte Carlo methods)
-        * removing the target network also saves some computation time as computing a neural network inference is longer than just calculating discounted reward values
+        * Removing the target network also saves some computation time as computing a neural network inference is longer than just calculating discounted reward values
     * Thus the error that my implementation of the neural network optimizes for is: ![Alt text](equation_images/dqn_mc_error.png), where ![Alt text](equation_images/expected_return.png) is the expected return at time ![Alt text](equation_images/t.png) for a particular sample trajectory, ![Alt text](equation_images/n.png) is the number of time steps in this trajectory, and therefore ![Alt text](equation_images/terminal_reward.png) is the terminal reward
     * I kept the implementation of the experience replay buffer, as I empirically found it to help with convergence
+    * I also modified how illegal moves are dealt with in the algorithm:
+        * Originally once the episode terminates either by the game being over or an illegal move being made, the terminal reward and associating discounted rewards are calculated and assigned to all states encountered and actions taken during the episode
+        * However I came to realize that the illegal move being made is not dependent on the previous states and actions that lead to the current state; rather it's just a matter of the neural network parameters outputting an illegal move as the most promising action
+        * That is to say, the previous states and actions leading up to the illegal move shouldn't be assigned the discounted illegal move reward (-1), as it could very well be that those actions were good strategy; it just so happens that for the current state, the neural network outputted an illegal move
+        * Therefore if an episode terminates due to an illegal move, only the most recent state and action, along with the illegal reward, is added to the replay buffer, since that action is illegal and is directly responsible for terminating the episode prematurely
+            * The rest of the previous states and actions are discarded
+        * If the episode ends naturally with a game over, then all states encountered and actions taken during the episode, along with the associated discounted rewards, are added to the replay buffer
 
 ### MuZero
 * [link to paper](https://arxiv.org/abs/1911.08265)
