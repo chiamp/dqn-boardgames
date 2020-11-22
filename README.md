@@ -7,7 +7,7 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 * [Incan Gold](#incan-gold)
 
 ## Algorithms
-* [Deep Q-Network (DQN)](#deep-q-network-dqn)
+* [Deep Q-Network (DQN)](#deep-q-network-(dqn))
 * [Muzero](#muzero)
 
 ## Commentary
@@ -51,11 +51,12 @@ This is a repo where I test reinforcement learning algorithms on board games. De
     * Note: some of these features are normalized
 * The action space is of size 2, which corresponds to leaving and staying
 
-### Deep Q-Network (DQN) ([link to paper](https://www.nature.com/articles/nature14236))
+### Deep Q-Network (DQN)
+* [link to paper](https://www.nature.com/articles/nature14236)
 * DQN is an algorithm that uses the concept of Q-learning, with the use of neural networks as the action-value function
 * It was used by DeepMind to create reinforcement learning agents that could perform at professional human levels on Atari games
 * Some important features of DQN:
-    * The TD-error for the DQN is:$$( r + \gamma \underset{a'}{ \text{max} }Q(s',a';\theta^-_i) - Q(s,a;\theta_i))^2$$, where $$Q$$ is the action value function (represented by a neural network), $$\theta_i$$ are the network's parameters at time step $$i$$, and $$\theta^-_i$$ are the target network's parameters at time step $$i$$
+    * The TD-error for the DQN is:<img src="https://render.githubusercontent.com/render/math?math=( r + \gamma \underset{a'}{ \text{max} }Q(s',a';\theta^-_i) - Q(s,a;\theta_i))^2">, where $$Q$$ is the action value function (represented by a neural network), $$\theta_i$$ are the network's parameters at time step $$i$$, and $$\theta^-_i$$ are the target network's parameters at time step $$i$$
     * The implementation of an experience replay buffer that is sampled from during training
 * Originally I implemented the algorithm denoted in the paper (with a target network and replay buffer), but later altered it for simplification:
     * Since I was solely working on 2+ player board games, the environments are such that the episodes will always terminate and will always have a winner/loser and/or players that tie
@@ -64,7 +65,8 @@ This is a repo where I test reinforcement learning algorithms on board games. De
         * removing the target network also saves some computation time as computing a neural network inference is longer than just calculating discounted reward values
     * Thus the error that my implementation of the neural network optimizes for is: $$(G_t - Q(s_t,a_t;\theta_i))^2$$, where $$G_t=\gamma^{t-n}r_n$$ is the expected return at time $$t$$ for a particular sample trajectory, $$n$$ is the number of time steps in this trajectory, and therefore $$r_n$$ is the terminal reward
 
-### MuZero ([link to paper](https://arxiv.org/abs/1911.08265))
+### MuZero
+* [link to paper](https://arxiv.org/abs/1911.08265)
 
 ## My Journey
 I got interested in reinforcement learning after watching the livestream of DeepMind's AlphaGo defeating Lee Se-dol. I read Sutton and Barto's [Reinforcement Learning: An Introduction, 2nd ed.](http://incompleteideas.net/book/the-book.html) and wanted to see if I could apply reinforcement learning to board games. I started off with the small Tic Tac Toe game, and decided to use a DQN, as I wanted practice using machine learning in reinforcement learning algorithms. I then tried applying DQN to Connect Four, as it is quite similar to Tic Tac Toe, albeit the observation and action space is bigger. 
