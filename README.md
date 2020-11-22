@@ -7,7 +7,7 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 * [Incan Gold](#incan-gold)
 
 ## Algorithms
-* [Deep Q-Network (DQN)](#deep-q-network-(dqn))
+* [Deep Q-Network (DQN)](#deep-q-network-dqn)
 * [Muzero](#muzero)
 
 ## Commentary
@@ -71,3 +71,5 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 ## My Journey
 I got interested in reinforcement learning after watching the livestream of DeepMind's AlphaGo defeating Lee Se-dol. I read Sutton and Barto's [Reinforcement Learning: An Introduction, 2nd ed.](http://incompleteideas.net/book/the-book.html) and wanted to see if I could apply reinforcement learning to board games. I started off with the small Tic Tac Toe game, and decided to use a DQN, as I wanted practice using machine learning in reinforcement learning algorithms. I then tried applying DQN to Connect Four, as it is quite similar to Tic Tac Toe, albeit the observation and action space is bigger. 
 After Connect Four, I wanted to try expanding the algorithm on games with more than 2 players and also games that didn't have perfect information, and so I chose Incan Gold. To my surprise, the overall observation and action space is smaller than Connect Four!
+
+![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
