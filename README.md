@@ -1,6 +1,11 @@
 # Reinforcement Learning Repo
 This is a repo where I test reinforcement learning algorithms on board games. Details on how the board games and algorithms are implemented can be found below.
 
+## Requirements
+* Python 3.7.7
+* Numpy 1.18.5
+* Tensorflow 2.2.0
+
 ## Games
 * [Tic Tac Toe](#tic-tac-toe)
 * [Connect Four](#connect-four)
@@ -46,9 +51,10 @@ This is a repo where I test reinforcement learning algorithms on board games. De
         * The version I implemented is a 3-player game, so with 3 players of 2 features each, that's 6 features in total
         * The first 2 features are always the current active player's features, followed by the features of the opponent with the highest point total of the two opponents, followed by the features of the last opponent
     * A binary value is used to indicate whether the opponent with the higher point total is still active this round, and another binary value is used to indicate whether the other opponent is still active this round
+    * A scalar value to indicate which round out of 5 the game is currently on
     * The board has 9 features: the number of points on the board, the number of 5-point artifacts on the board, the numer of 10-point artifacts on the board, the number of fire cards on the board, the number of mummy cards on the board, the number of rock cards on the board, the number of snake cards on the board, the number of spider cards on the board, and the number of active players in this round
     * The deck has 17 one-hot encoded features: each feature is a value representing how many of a particular card is present in the deck currently
-    * These features are concatenated together to give an overall: 2 x 3 + 2 + 9 + 17 = 34 features to represent the Incan Gold game state
+    * These features are concatenated together to give an overall: 2 x 3 + 2 + 1 + 9 + 17 = 35 features to represent the Incan Gold game state
     * Note: some of these features are normalized
 * The action space is of size 2, which corresponds to leaving and staying
 
