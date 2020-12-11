@@ -135,7 +135,7 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 * An algorithm to iteratively improve deck compositions in Gwent Lite
 * Every iteration, the trained AI uses each deck in the current deck pool and plays a number of games against every other deck in the deck pool
 * The decks with the highest winrate are then added to the deck pool for the next iteration, while the rest of the decks are discarded
-* "Offspring" decks are then generated from these "winning" decks by copying the deck and then mutating the cards (specifically for every card in the deck, there is a certain percentage that the card will mutate, and the value of that card changes according to a value sampled from a normal distribution)
+* "Offspring" decks are then generated from these "winning" decks by copying the deck a number of times and then mutating the cards (specifically for every card in the deck, there is a certain percentage that the card will mutate, and the value of that card changes according to a value sampled from a normal distribution)
 * These offspring decks are added to the deck pool and the remaining space in the deck pool is filled by randomly generated decks (to add diversity to the deck pool)
 
 ### Results
