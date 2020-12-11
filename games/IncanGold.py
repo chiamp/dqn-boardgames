@@ -1,6 +1,8 @@
 from Game import *
 import numpy as np
 
+# Game rules can be found here: https://en.doc.boardgamearena.com/Gamehelpincangold
+
 
 TREASURE_VALUE_ONEHOT_DECK_MAPPING = {1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 7: 5, 9: 6, 11: 7, 13: 8, 14: 9, 15: 10} # (treasure_value) --> (deck_onehot_index)
 
@@ -165,7 +167,7 @@ class IncanGold(Game):
         self.active_players = [] # list[ player_indices who are still in this round ]
         self.player_actions = {} # buffer to hold player actions, and then execute them simultaneously (since this game isn't turn based)
     def get_name(self): return 'Incan Gold'
-    def get_observation_shape(self): return 34
+    def get_observation_shape(self): return 35
     def get_action_space_size(self): return 2
     def get_number_of_players(self): return 3
     def reset(self):
@@ -257,6 +259,7 @@ class IncanGold(Game):
         # Opponent (highest): ( player_points , player_board_points )
         # Opponent (lower): ( player_points , player_board_points )
         # Which opponent(s) are active: Binary 2-tuple([0/1,0/1]), # corresponding to the order opponents with highest points first, lower second
+        # Round number: Scalar(1)
         # Board: board_points , num_5_point_artifacts , num_10_point_artifacts , 5-tuple(hazard count) , num_active_players
         # Deck: Onehot(17)
         
@@ -267,18 +270,11 @@ class IncanGold(Game):
         opponent_indices = [ opponent_index for opponent_index in range(3) if opponent_index != player_index ]
         lower_opponent_index,highest_opponent_index = np.argsort( [ self.player_points[opponent_index] for opponent_index in opponent_indices ] )
         lower_opponent_index,highest_opponent_index = opponent_indices[lower_opponent_index],opponent_indices[highest_opponent_index]
-
-##        print(f'Player: {self.player_points[player_index] / total_player_and_player_board_points , self.player_board_points[player_index] / total_player_and_player_board_points}')
-##        print(f'Opponent (highest): {self.player_points[highest_opponent_index] / total_player_and_player_board_points , self.player_board_points[highest_opponent_index] / total_player_and_player_board_points}')
-##        print(f'Opponent (lower): {self.player_points[lower_opponent_index] / total_player_and_player_board_points , self.player_board_points[lower_opponent_index] / total_player_and_player_board_points}')
-##        print(f'Opponent active: {1 if highest_opponent_index in self.active_players else 0 , 1 if lower_opponent_index in self.active_players else 0}')
-##        print(f'Board: {self.board.get_features()}')
-##        print(f'Deck: {self.deck.get_features()}')
         
         return np.concatenate( ( [ self.player_points[player_index] / total_player_and_player_board_points , self.player_board_points[player_index] / total_player_and_player_board_points ,
                                    self.player_points[highest_opponent_index] / total_player_and_player_board_points , self.player_board_points[highest_opponent_index] / total_player_and_player_board_points ,
                                    self.player_points[lower_opponent_index] / total_player_and_player_board_points , self.player_board_points[lower_opponent_index] / total_player_and_player_board_points ,
-                                   1 if highest_opponent_index in self.active_players else 0 , 1 if lower_opponent_index in self.active_players else 0 ] ,
+                                   1 if highest_opponent_index in self.active_players else 0 , 1 if lower_opponent_index in self.active_players else 0 , self.round / 5 ] ,
                                  self.board.get_features() , self.deck.get_features() ) ).reshape(1,-1)
     def sample_legal_move(self): return np.random.choice(2)
     def __str__(self):
@@ -295,12 +291,11 @@ class IncanGold(Game):
             game_over,winner = self.check_game_over()
             while not game_over:
                 print(self)
-##                self.get_features(self.get_player_turn())
+
                 a = int( input('Move: ') )
                 while not self.act(a): a = int( input('Illegal!\nMove: ') )
                 game_over,winner = self.check_game_over()
             print(self)
-##            self.get_features(self.get_player_turn())
 
             print(self.check_game_over())
 
