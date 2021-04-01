@@ -1,3 +1,4 @@
+
 # Reinforcement Learning Repo
 This is a repo where I test reinforcement learning algorithms on board games. Details on how the board games and algorithms are implemented can be found below.
 
@@ -14,7 +15,6 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 
 ## Algorithms
 * [Deep Q-Network (DQN)](#deep-q-network-dqn)
-* [Muzero](#muzero)
 * [Genetic Algorithm](#genetic-algorithm)
 
 ## Commentary
@@ -128,9 +128,6 @@ This is a repo where I test reinforcement learning algorithms on board games. De
         * The rest of the previous states and actions are discarded
     * If the episode ends naturally with a game over, then all states encountered and actions taken during the episode, along with the associated discounted rewards, are added to the replay buffer
 
-### MuZero
-* [link to paper](https://arxiv.org/abs/1911.08265)
-
 ### Genetic Algorithm
 * An algorithm to iteratively improve deck compositions in Gwent Lite
 * Every iteration, the trained AI uses each deck in the current deck pool and plays a number of games against every other deck in the deck pool
@@ -141,13 +138,15 @@ This is a repo where I test reinforcement learning algorithms on board games. De
 ### Results
 I was surprised to see an interesting strategy my Tic Tac Toe agent employed, where it would start with a play on the top right corner. Naturally I'd take the center on my turn, as that's the common wisdom of this game. It then proceeded to play on the center bottom square, which I found very unusual. I ended up falling for a double trap, which really caught me off guard considering how simple Tic Tac Toe is. The agent used a form of double trap that I've never seen before, as I'm used to other patterns that humans usually play.
 
-For Connect Four, the agent has managed to beat me every time. Doing some research, I know that Connect Four is solved, and that the first player can be guaranteed to win through optimal play, and by placing his first piece in the middle column. The agent I played against did just that (although I'm not sure if it really is optimal, but it manages to beat me everytime it starts first, and always places its first piece in the center column)
+For Connect Four, the agent has managed to beat me every time. Doing some research, I know that Connect Four is solved, and that the first player can be guaranteed to win through optimal play, and by placing his first piece in the middle column. The agent I played against did just that (although I'm not sure if it really is optimal, but it manages to beat me every time it starts first, and always places its first piece in the center column)
+
+For Incan Gold, the agent was able to consistently win either first or second place, which I consider a success, given the stochastic nature of the game. Future work could be done to extend the agent to play games with more players.
 
 ### My Journey
 I got interested in reinforcement learning after watching the livestream of DeepMind's AlphaGo defeating Lee Se-dol. I read Sutton and Barto's [Reinforcement Learning: An Introduction, 2nd ed.](http://incompleteideas.net/book/the-book.html) and wanted to see if I could apply reinforcement learning to board games. I started off with the small Tic Tac Toe game, and decided to use a DQN, as I wanted practice using neural networks in reinforcement learning algorithms. I then tried applying DQN to Connect Four, as it is quite similar to Tic Tac Toe, albeit the observation and action space is bigger. 
 
 After Connect Four, I wanted to try expanding the algorithm on games with more than 2 players and also games that didn't have perfect information, and so I chose Incan Gold. To my surprise, the overall observation and action space is smaller than Connect Four!
 
-I then wanted to try working on a game that required decisions to be made before the game actually started. In Gwent Lite, and other similar trading/collectible card games like Gwent, Hearthstone, and Magic: The Gathering, players have to make decisions about what kind of deck they want to build and use before the game starts. This type of pre-game decision making isn't just solely for card games, for example in Pokemon, you would have to make a decision on what kind of Pokemon you want on your team, as well as what abilities, items and stats to have for each Pokemon. The fact that these decisions have to be made based on the game's constraints, whether that's minimum/maximum deck size and limited card copies for card games or certain abilities can only be learned by specific Pokemon, it really interests me to see whether an AI algorithm can be used to determine what is the optimal decision to make when constructing a deck/team prior to the game starting. Particularly in Magic: The Gathering, being a casual player myself, I always wondered given a set pool of cards that all players have access to, is there a way to construct an optimal deck that will have the highest chances of winning?
+I then wanted to try working on a game that required decisions to be made before the game actually started. In Gwent Lite, and other similar trading/collectible card games like Gwent, Hearthstone, and Magic: The Gathering, players have to make decisions about what kind of deck they want to build and use before the game starts. This type of pre-game decision making isn't just solely for card games, for example in Pokemon, you would have to make a decision on what kind of Pokemon you want on your team, as well as what abilities, items and stats to have for each Pokemon. The fact that these decisions have to be made based on the game's constraints, whether that's minimum/maximum deck size and limited card copies for card games or certain abilities can only be learned by specific Pokemon, really interests me to see whether an AI algorithm can be used to determine what is the optimal decision to make when constructing a deck/team prior to the game starting. Particularly in Magic: The Gathering, being a casual player myself, I always wondered given a set pool of cards that all players have access to, is there a way to construct an optimal deck that will have the highest chances of winning?
 
 Since card games are quite complex environments to implement, I decided to make a simpler version of the pre-existing collectible card game, Gwent. I decided to use a genetic algorithm to iteratively improve on deck compositions, given the deck constraints, by having an AI play against itself using different randomly-generated decks. There were two options I considered when training an AI: either train with randomized decks to create a general deck-playing Agent, or train with specific decks and create specialized deck-playing Agents for each specific deck. Unfortunately my computer setup doesn't have enough compute power to explore the latter option, so I went with the former method. I used randomized decks and DQN to train the AI Agent and then used a genetic algorithm and the trained AI to iteratively improve the deck pool.
