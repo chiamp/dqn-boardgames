@@ -1,6 +1,6 @@
 
-# Reinforcement Learning Repo
-This is a repo where I test reinforcement learning algorithms on board games. Details on how the board games and algorithms are implemented can be found below.
+# DQN Boardgames Repo
+This is a repo where I test the reinforcement learning algorithm DQN on board games. Details on how the board games and algorithm are implemented can be found below.
 
 ## Requirements
 * Python 3.7.7
